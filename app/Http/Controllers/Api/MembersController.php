@@ -20,9 +20,11 @@ class MembersController extends Controller
     public function __construct(Request $request)
     {
         $user = Auth::user();
-        $apiKey = $user->mailchimp_api_key;
 
-        $this->client = new Client(['headers' => ['Authorization' => 'apikey ' . $apiKey]]);
+        if ($user) {
+            $apiKey = $user->mailchimp_api_key;
+            $this->client = new Client(['headers' => ['Authorization' => 'apikey ' . $apiKey]]);
+        }
     }
 
     /**

@@ -19,9 +19,11 @@ class ListsController extends Controller
     public function __construct()
     {
         $user = Auth::user();
-        $apiKey = $user->mailchimp_api_key;
 
-        $this->client = new Client(['headers' => ['Authorization' => 'apikey ' . $apiKey]]);
+        if ($user) {
+            $apiKey = $user->mailchimp_api_key;
+            $this->client = new Client(['headers' => ['Authorization' => 'apikey ' . $apiKey]]);
+        }
     }
 
     /**
