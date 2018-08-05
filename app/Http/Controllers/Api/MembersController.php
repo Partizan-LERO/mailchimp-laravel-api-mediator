@@ -69,7 +69,7 @@ class MembersController extends Controller
             return new JsonResponse($e->getMessage(), $e->getCode());
         }
 
-        $this->clearResponseCache();
+        ResponseCache::flush();
         return $response;
 
     }
@@ -123,7 +123,7 @@ class MembersController extends Controller
             return new JsonResponse($e->getMessage(), $e->getCode());
         }
 
-        $this->clearResponseCache();
+        ResponseCache::flush();
         return $response;
     }
 
@@ -143,13 +143,7 @@ class MembersController extends Controller
             return new JsonResponse($e->getMessage(), $e->getCode());
         }
 
-        $this->clearResponseCache();
-
-        return new JsonResponse('The user has been deleted successfully.', 200);
-    }
-
-    private function clearResponseCache()
-    {
-        ResponseCache::forget('/api/members/', '/api/members/show');
+        ResponseCache::flush();
+        return new JsonResponse('The member has been deleted successfully.', 200);
     }
 }

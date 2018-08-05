@@ -69,7 +69,7 @@ class ListsController extends Controller
             return new JsonResponse($e->getMessage(), $e->getCode());
         }
 
-        $this->clearResponseCache();
+        ResponseCache::flush();
         return $response;
 
     }
@@ -118,7 +118,7 @@ class ListsController extends Controller
             return new JsonResponse($e->getMessage(), $e->getCode());
         }
 
-        $this->clearResponseCache();
+        ResponseCache::flush();
         return $response;
     }
 
@@ -136,12 +136,7 @@ class ListsController extends Controller
             return new JsonResponse($e->getMessage(), $e->getCode());
         }
 
-        ResponseCache::clear();
+        ResponseCache::flush();
         return new JsonResponse('The list has been deleted successfully.', '200');
-    }
-
-    private function clearResponseCache()
-    {
-        ResponseCache::forget('/api/lists/', '/api/lists/show');
     }
 }
